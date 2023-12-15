@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 import 'package:regexpattern/regexpattern.dart';
@@ -65,13 +63,6 @@ class _QrScannerState extends State<QrScanner> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    scanCompleted = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width - 10;
     return Scaffold(
@@ -105,13 +96,6 @@ class _QrScannerState extends State<QrScanner> {
                       ),
                     ),
 
-
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(width: 70, color: Colors.black38)
-                      //   ),
-                      // )
-
                       QRScannerOverlay(overlayColor: Colors.black38,)
 
                   ]
@@ -125,12 +109,11 @@ class _QrScannerState extends State<QrScanner> {
                 children: [
 
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Decoded Results\n$results", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+                      Expanded(child: Text("Decoded Results :\n$results", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),)),
 
-                      IconButton(onPressed: () {
-
-                      }, icon: const Icon(Icons.copy))
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.copy))
                     ],
                   ),
 
@@ -138,10 +121,12 @@ class _QrScannerState extends State<QrScanner> {
                   Visibility(
                       visible: scanCompleted,
                       child: ElevatedButton(child: const Text("Scan Again"), onPressed: () {
-                    setState(() {
-                      scanCompleted = false;
-                    });
-                  },))
+                        setState(() {
+                          scanCompleted = false;
+                        });
+                      },
+                      )
+                  )
 
 
 
